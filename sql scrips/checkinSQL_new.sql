@@ -106,3 +106,14 @@ BEGIN
 	insert into stamp values(default, @userid, default, null, @flags, null);
 END
 GO
+
+-- Card Expiration
+--Does this work? - Passport
+CREATE FUNCTION checkin.CardExpired (@cardId varchar(8))  
+RETURNS BIT  
+WITH EXECUTE AS CALLER  
+AS  
+BEGIN
+     RETURN GETDATE() > (SELECT expirationdate FROM card WHERE cardid = @cardId);  
+END  
+GO  
